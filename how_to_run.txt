@@ -1,0 +1,3 @@
+start backend by typing in terminal : uvicorn app.backend.main:app --reload
+
+start frontend by typing in the terminal : npm run dev
