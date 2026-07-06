@@ -6,19 +6,17 @@ The application includes a complete machine learning pipeline, a FastAPI backend
 
 📸 Demo
 
-Add screenshots or a GIF here after deployment.
-
 Home Page
 
-docs/home.jpeg
+![Home Page](docs/home.png)
 
 Prediction Result
 
-docs/result.jpeg
+![Prediction Result](docs/result.png)
 
 Grad-CAM Visualization
 
-docs/gradcam.png
+![Grad-CAM Visualization](docs/gradcam.png)
 
 ✨ Features
 Chest X-ray classification
