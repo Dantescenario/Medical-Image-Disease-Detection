@@ -1,9 +1,10 @@
+import os
+from pathlib import Path
+
 from fastapi import FastAPI, UploadFile, File
 from PIL import Image
 
 from app.backend.predictor import predict
-
-from fastapi.responses import FileResponse
 
 from app.backend.gradcam import generate_gradcam
 from fastapi.staticfiles import StaticFiles
@@ -15,17 +16,20 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-    ],
+    allow_origins=[origin.strip() for origin in os.getenv(
+        "CORS_ORIGINS", "http://localhost:5173"
+    ).split(",") if origin.strip()],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+OUTPUT_DIR = Path(__file__).resolve().parents[2] / "outputs"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
 app.mount(
     "/outputs",
-    StaticFiles(directory="outputs"),
+    StaticFiles(directory=OUTPUT_DIR),
     name="outputs"
 )
 

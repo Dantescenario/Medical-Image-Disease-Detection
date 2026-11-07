@@ -1,8 +1,9 @@
 import torch
+from pathlib import Path
+from torch import nn
 from PIL import Image
 from torchvision import transforms
-
-from models.model import model
+from torchvision.models import resnet18
 
 
 # ======================================================
@@ -10,11 +11,13 @@ from models.model import model
 # ======================================================
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+model = resnet18(weights=None)
+model.fc = nn.Linear(model.fc.in_features, 2)
 model = model.to(device)
 
 model.load_state_dict(
     torch.load(
-        "outputs/best_model.pth",
+        Path(__file__).resolve().parents[2] / "outputs" / "best_model.pth",
         map_location=device
     )
 )

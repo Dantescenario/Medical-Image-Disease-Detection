@@ -1,3 +1,5 @@
+import { getHeatmapUrl } from "../services/api";
+
 function Result({ result }) {
     if (!result) return null;
 
@@ -19,7 +21,7 @@ function Result({ result }) {
             {result.heatmap && (
                 <div className="mt-6">
                     <img
-                        src={`http://127.0.0.1:8000/${result.heatmap}`}
+                        src={getHeatmapUrl(result.heatmap)}
                         alt="GradCAM"
                         className="rounded-lg shadow"
                     />

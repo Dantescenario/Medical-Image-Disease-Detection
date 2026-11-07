@@ -1,3 +1,5 @@
+import { getHeatmapUrl } from "../services/api";
+
 function ImageComparison({ originalImage, heatmap }) {
   if (!originalImage || !heatmap) return null;
 
@@ -28,7 +30,7 @@ function ImageComparison({ originalImage, heatmap }) {
           </h3>
 
           <img
-            src={`http://127.0.0.1:8000/${heatmap}`}
+            src={getHeatmapUrl(heatmap)}
             alt="GradCAM"
             className="rounded-2xl shadow-lg w-full"
           />
