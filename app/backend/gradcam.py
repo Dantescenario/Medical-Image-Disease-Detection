@@ -34,7 +34,7 @@ def generate_gradcam(image: Image.Image):
         target_layers=[target_layer]
     )
 
-    grayscale_cam = cam(input_tensor=input_tensor)[0]
+    grayscale_cam = cam(input_tensor=input_tensor, targets=None)[0]
 
     rgb_image = image.resize((224, 224))
     rgb_image = np.array(rgb_image).astype(np.float32) / 255.0
