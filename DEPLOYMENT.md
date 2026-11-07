@@ -15,6 +15,10 @@ Use render.yaml as a Render Blueprint, or configure an existing service:
 The CPU PyTorch packages avoid downloading unnecessary CUDA libraries. The
 tracked file outputs/best_model.pth must be included in the deployment.
 Inference loads this checkpoint directly without downloading ImageNet weights.
+ML dependencies initialize on the first prediction request so they do not delay
+port binding. That request can take longer while the model and Matplotlib font
+cache initialize. The root health check confirms HTTP availability, not model
+readiness.
 
 Deploy the frontend separately as a static site:
 

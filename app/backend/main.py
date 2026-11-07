@@ -4,9 +4,6 @@ from pathlib import Path
 from fastapi import FastAPI, UploadFile, File
 from PIL import Image
 
-from app.backend.predictor import predict
-
-from app.backend.gradcam import generate_gradcam
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -42,7 +39,11 @@ def home():
 
 
 @app.post("/predict")
-async def predict_image(file: UploadFile = File(...)):
+def predict_image(file: UploadFile = File(...)):
+    # Load ML dependencies on first use so Uvicorn can bind its port promptly.
+    # A sync endpoint runs this CPU work in FastAPI's worker thread pool.
+    from app.backend.predictor import predict
+    from app.backend.gradcam import generate_gradcam
 
     image = Image.open(file.file)
 
